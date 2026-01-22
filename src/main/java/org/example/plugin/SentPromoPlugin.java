@@ -1,9 +1,12 @@
 package org.example.plugin;
 
 import com.hypixel.hytale.logger.HytaleLogger;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.console.ConsoleSender;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.Universe;
+import fi.sulku.hytale.TinyMsg;
 
 import javax.annotation.Nonnull;
 
@@ -18,5 +21,12 @@ public class SentPromoPlugin extends JavaPlugin {
         super.setup();
         Universe.get().getEntityStoreRegistry().registerSystem(new SentPromeDelayedSystem());
         this.getCommandRegistry().registerCommand(new ExampleCommand(this.getName(), this.getManifest().getVersion().toString()));
+    }
+
+    @Override
+    protected void start() {
+        Message message = TinyMsg.parse("<blue>Awesome!</blue>");
+        ConsoleSender.INSTANCE.sendMessage(message);
+        super.start();
     }
 }
